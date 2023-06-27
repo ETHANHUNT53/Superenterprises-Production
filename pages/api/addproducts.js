@@ -20,7 +20,6 @@ const handler =  async(req,res)=>{
             })
             await p.save();
         }
-        console.log('succccc');
         res.status(200).json({success:"success"});
       }catch(e){
         console.log(e);
