@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from '@emotion/react';
 import FullLayout from '@/src/layouts/FullLayout';
 import theme from '@/src/theme/theme';
@@ -20,99 +20,87 @@ import BaseCard from "../../src/components/baseCard/BaseCard";
 // function onsubmit(){
 
 // }
+const API_URL = 'http://localhost:3000/api/addproducts';
+const Allproducts = () => {
 
-const add = () => {
+  const [form,setForm] = useState({})
+  const onChange = (e)=>{
+      setForm({
+        ...form,
+        [e.target.name] : e.target.value 
+      })
+      
+  }
+
+  const submitForm = async(e)=>{
+      e.preventDefault();
+      console.log(form);
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify([form]),
+        });
+        console.log(response);
+  
+        if (response.ok) {
+          console.log('Data submitted successfully!');
+        } else {
+          console.error('Error submitting data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error submitting data:', error);
+      }
+      
+  }
     return (
     
         <ThemeProvider theme={theme}>
+          <style jsx global>{`
+          footer {
+            display: none;
+          }
+          `}</style>
           <FullLayout>
     <Grid container spacing={0}>
       <Grid item xs={12} lg={12}>
         <BaseCard title="Add a Product">
           <Stack spacing={3}>
             <TextField
-              id="title"
+              name="title"
               label="Title"
               variant="outlined"
+               value={form.title? form.title:""} onChange={onChange}
             />
-            <TextField id="type" label="Type" variant="outlined" />
-            <TextField id="size" label="Size" variant="outlined" />
-            <TextField id="color" label="Color" variant="outlined" />
-           
+            <TextField onChange={onChange} value={form.slug?form.slug:""} name="slug" label="Slug" variant="outlined" />
             <TextField
-              id="description"
+              name="desc"
               label="Description"
+              value={form.desc?form.desc:""}
               multiline
-              rows={4}
-              defaultValue="Default Value"
+              rows={4} onChange={onChange}
             />
-            <TextField
-              error
-              id="er-basic"
-              label="Error"
-              defaultValue="ad1avi"
-              variant="outlined"
-            />
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                label="Terms & Condition"
-              />
-              <FormControlLabel
-                disabled
-                control={<Checkbox />}
-                label="Disabled"
-              />
-            </FormGroup>
-            <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
-                name="radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="Other"
-                />
-              </RadioGroup>
-            </FormControl>
+            <TextField onChange={onChange} value={form.img? form.img:""} name="img" label="Image url" variant="outlined" />
+            <TextField onChange={onChange} value={form.category? form.category:""} name="category" label="Category" variant="outlined" />
+            <TextField onChange={onChange} value={form.size? form.size:""} name="size" label="Size" variant="outlined" />
+            <TextField onChange={onChange} value={form.color?form.color:""} name="color" label="Color" variant="outlined" />
+            <TextField onChange={onChange} value={form.price?form.price:""} name="price" label="Price" variant="outlined" />
+            <TextField onChange={onChange} value={form.availableQty?form.availableQty:""} name="availableQty" label="Quantity" variant="outlined" />
+           
+           
+            
+            
           </Stack>
           <br />
-          <Button variant="contained" mt={2} onClick={onsubmit}>
+          <Button onClick={submitForm} variant="outlined" mt={2} >
             Submit
           </Button>
         </BaseCard>
       </Grid>
 
-      <Grid item xs={12} lg={12}>
-        <BaseCard title="Form Design Type">
-          <Stack spacing={3} direction="row">
-            <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-            />
-            <TextField id="filled-basic" label="Filled" variant="filled" />
-            <TextField
-              id="standard-basic"
-              label="Standard"
-              variant="standard"
-            />
-          </Stack>
-        </BaseCard>
-      </Grid>
+      
     </Grid>
   
         </FullLayout>
@@ -121,4 +109,4 @@ const add = () => {
       );
 }
 
-export default add
+export default Allproducts
