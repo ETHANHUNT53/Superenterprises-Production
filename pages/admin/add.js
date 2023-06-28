@@ -23,7 +23,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // function onsubmit(){
 
 // }
-const API_URL = 'api/addproducts';
+const API_URL = '/api/addproducts';
 const Allproducts = () => {
 
   const [form,setForm] = useState({})
