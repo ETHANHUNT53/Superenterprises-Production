@@ -16,6 +16,9 @@ import {
   Button,
 } from "@mui/material";
 import BaseCard from "../../src/components/baseCard/BaseCard";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // function onsubmit(){
 
@@ -46,17 +49,61 @@ const Allproducts = () => {
   
         if (response.ok) {
           console.log('Data submitted successfully!');
+          toast.success('Product added successfully!', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+
         } else {
           console.error('Error submitting data:', response.statusText);
+          toast.error("Error adding product!", {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
       } catch (error) {
         console.error('Error submitting data:', error);
+        toast.error("Error adding product!", {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
       
   }
     return (
+      
     
         <ThemeProvider theme={theme}>
+             <ToastContainer
+position="top-left"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
           <style jsx global>{`
           footer {
             display: none;
