@@ -20,7 +20,7 @@ import BaseCard from "../../src/components/baseCard/BaseCard";
 // function onsubmit(){
 
 // }
-const API_URL = 'https://superenterprises-production-7jkq.vercel.app/api/addproducts';
+const API_URL = 'api/addproducts';
 const Allproducts = () => {
 
   const [form,setForm] = useState({})
