@@ -20,7 +20,7 @@ import BaseCard from "../../src/components/baseCard/BaseCard";
 // function onsubmit(){
 
 // }
-const API_URL = 'http://localhost:3000/api/addproducts';
+const API_URL = 'https://superenterprises-production-7jkq.vercel.app/api/addproducts';
 const Allproducts = () => {
 
   const [form,setForm] = useState({})
@@ -43,7 +43,6 @@ const Allproducts = () => {
           },
           body: JSON.stringify([form]),
         });
-        console.log(response);
   
         if (response.ok) {
           console.log('Data submitted successfully!');
